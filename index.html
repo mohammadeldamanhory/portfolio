@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mohammad Wagih — Communication & Electronics Engineering student building toward AI Engineering." />
+  <title>Mohammad Wagih | Engineering × AI</title>
+  <style>
+    :root {
+      --bg: #070a12;
+      --bg2: #0b1020;
+      --panel: rgba(16, 22, 38, 0.72);
+      --panel-solid: #101628;
+      --text: #f5f7fb;
+      --muted: #a7afc2;
+      --line: rgba(255,255,255,.10);
+      --accent: #5da8ff;
+      --accent2: #9a7bff;
+      --accent3: #64d7ff;
+      --shadow: 0 24px 70px rgba(0,0,0,.38);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 75% 12%, rgba(93,168,255,.10), transparent 28%),
+        radial-gradient(circle at 12% 34%, rgba(154,123,255,.08), transparent 28%),
+        linear-gradient(135deg, #06080e 0%, #09101f 52%, #070a12 100%);
+      min-height: 100vh;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .10;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { width: min(1140px, 92%); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(7,10,18,.68);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .nav-inner { height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .03em; }
+    .brand-mark {
+      width: 36px; height: 36px; border-radius: 11px;
+      border: 1px solid rgba(93,168,255,.5);
+      display: grid; place-items: center;
+      background: linear-gradient(145deg, rgba(93,168,255,.16), rgba(154,123,255,.12));
+      box-shadow: inset 0 0 22px rgba(93,168,255,.06);
+      font-size: 15px;
+    }
+    .brand span { color: #dfe8ff; }
+    .nav-links { display: flex; gap: 24px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: white; }
+
+    .hero { padding: 96px 0 76px; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-size: 13px; letter-spacing: .14em; text-transform: uppercase;
+      color: #bed8ff; font-weight: 800;
+      padding: 8px 13px; border-radius: 999px;
+      background: rgba(93,168,255,.08); border: 1px solid rgba(93,168,255,.20);
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent3); box-shadow: 0 0 13px rgba(100,215,255,.75); }
+    h1 { font-size: clamp(46px, 7vw, 82px); line-height: .98; margin: 22px 0 22px; letter-spacing: -.055em; max-width: 860px; }
+    h1 .gradient { background: linear-gradient(105deg, #fff 10%, #9dcaff 46%, #b79fff 88%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { max-width: 710px; color: var(--muted); font-size: 18px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 46px; padding: 0 18px; border-radius: 13px;
+      border: 1px solid var(--line); font-weight: 700; font-size: 14px;
+      transition: .2s ease; cursor: pointer;
+    }
+    .btn-primary { background: linear-gradient(135deg, #5da8ff, #806fff); color: #07101f; border: none; box-shadow: 0 10px 32px rgba(93,168,255,.20); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(93,168,255,.27); }
+    .btn-ghost { background: rgba(255,255,255,.035); color: #e8edf8; }
+    .btn-ghost:hover { background: rgba(255,255,255,.07); transform: translateY(-2px); }
+
+    .hero-card {
+      position: relative; min-height: 430px; border: 1px solid var(--line); border-radius: 30px;
+      background: linear-gradient(180deg, rgba(15,22,39,.86), rgba(9,13,24,.74));
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero-card::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 35%, rgba(93,168,255,.18), transparent 28%), radial-gradient(circle at 52% 72%, rgba(154,123,255,.12), transparent 34%);
+    }
+    .circuit {
+      position: absolute; inset: 18% 12%;
+      border: 1px solid rgba(93,168,255,.16);
+      border-radius: 28px;
+      transform: rotate(-7deg);
+    }
+    .circuit::before, .circuit::after { content:""; position:absolute; border:1px solid rgba(154,123,255,.16); border-radius:50%; inset: 16% 23%; }
+    .circuit::after { inset: 36% 34%; border-color: rgba(100,215,255,.24); }
+    .node { position:absolute; width:10px; height:10px; border-radius:50%; background: var(--accent3); box-shadow: 0 0 18px rgba(100,215,255,.7); }
+    .node.n1 { left: 11%; top: 24%; }
+    .node.n2 { right: 13%; top: 33%; }
+    .node.n3 { left: 28%; bottom: 15%; }
+    .node.n4 { right: 27%; bottom: 21%; background: #9a7bff; box-shadow: 0 0 18px rgba(154,123,255,.7); }
+    .hero-card-content { position:absolute; inset: 0; display:flex; flex-direction:column; justify-content:flex-end; padding: 28px; }
+    .mini-label { color:#8ea7c9; font-size: 11px; letter-spacing:.15em; text-transform:uppercase; }
+    .hero-card h3 { font-size: 30px; line-height:1.1; margin: 10px 0 6px; }
+    .hero-card p { font-size: 14px; margin:0; color:var(--muted); }
+
+    section { padding: 90px 0; }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap: 24px; margin-bottom: 30px; }
+    .kicker { color:#87bfff; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.18em; }
+    h2 { font-size: clamp(34px, 4vw, 52px); margin: 8px 0 0; letter-spacing:-.04em; line-height:1; }
+    .section-head p { color:var(--muted); max-width: 500px; margin:0; }
+
+    .panel { background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .about-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .about-copy { padding: 32px; }
+    .about-copy p { color: var(--muted); margin-top: 0; }
+    .quote {
+      padding: 32px; position:relative; overflow:hidden;
+      background: linear-gradient(135deg, rgba(93,168,255,.08), rgba(154,123,255,.08));
+    }
+    .quote::after { content:"//"; position:absolute; right:24px; bottom:12px; font-size: 100px; font-weight:900; color:rgba(255,255,255,.025); }
+    .quote strong { display:block; font-size: 24px; line-height:1.25; margin-bottom:18px; }
+
+    .stats { display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin-top:22px; }
+    .stat { padding:20px; text-align:center; }
+    .stat strong { display:block; font-size:29px; }
+    .stat span { color:var(--muted); font-size:12px; }
+
+    .skills-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:16px; }
+    .skill-card { padding:24px; }
+    .skill-card h3 { margin:0 0 8px; font-size:16px; }
+    .skill-card p { margin:0; color:var(--muted); font-size:14px; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .chip { padding:7px 10px; border-radius:9px; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.08); color:#dbe2f2; font-size:12px; }
+
+    .projects { display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+    .project { padding: 24px; display:flex; flex-direction:column; min-height: 320px; position:relative; overflow:hidden; }
+    .project::before { content:""; position:absolute; width:130px; height:130px; right:-46px; top:-46px; border-radius:50%; background: radial-gradient(circle, rgba(93,168,255,.16), transparent 68%); }
+    .tag { font-size:11px; text-transform:uppercase; letter-spacing:.13em; color:#91c2ff; font-weight:800; }
+    .project h3 { font-size:22px; line-height:1.2; margin:14px 0 10px; max-width: 300px; }
+    .project p { color:var(--muted); font-size:14px; margin:0; }
+    .project-footer { margin-top:auto; padding-top:18px; display:flex; flex-wrap:wrap; gap:7px; }
+    .project-footer span { padding:6px 9px; border-radius:8px; background:rgba(255,255,255,.04); font-size:11px; color:#c8d1e4; border:1px solid rgba(255,255,255,.07); }
+
+    .timeline { display:grid; gap:14px; }
+    .timeline-item { padding:24px; display:flex; justify-content:space-between; gap:22px; align-items:flex-start; }
+    .timeline-main h3 { margin:0 0 5px; font-size:19px; }
+    .timeline-main p { margin:0; color:var(--muted); font-size:14px; }
+    .timeline-year { white-space:nowrap; color:#8fbfff; font-weight:800; font-size:12px; letter-spacing:.08em; }
+
+    .contact { padding: 38px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; background: linear-gradient(135deg, rgba(93,168,255,.11), rgba(154,123,255,.10)); }
+    .contact h2 { font-size:38px; }
+    .contact p { color:var(--muted); max-width:650px; }
+    .contact-actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+
+    footer { padding: 32px 0 50px; color:#707a91; font-size:13px; }
+    .footer-inner { display:flex; justify-content:space-between; gap:18px; border-top:1px solid var(--line); padding-top:22px; }
+
+
+    /* --- Personal profile + subtle motion --- */
+    .hero-copy { animation: heroIn .8s cubic-bezier(.2,.75,.25,1) both; }
+    .hero-card { animation: cardFloat 7s ease-in-out infinite; transform-origin: center; }
+    .profile-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+      filter: saturate(.94) contrast(1.04) brightness(.83);
+      transform: scale(1.035);
+      transition: transform .7s ease, filter .7s ease;
+    }
+    .hero-card:hover .profile-image { transform: scale(1.065); filter: saturate(1) contrast(1.05) brightness(.9); }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(4,8,17,.05) 0%, rgba(4,8,17,.08) 35%, rgba(4,8,17,.86) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .profile-glow {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      right: -60px;
+      top: -70px;
+      background: radial-gradient(circle, rgba(100,215,255,.22), transparent 68%);
+      filter: blur(10px);
+      z-index: 0;
+      animation: glowDrift 6s ease-in-out infinite;
+    }
+    .circuit { z-index: 2; animation: circuitDrift 10s ease-in-out infinite; }
+    .node { animation: nodePulse 2.8s ease-in-out infinite; }
+    .node.n2 { animation-delay: .7s; }
+    .node.n3 { animation-delay: 1.4s; }
+    .node.n4 { animation-delay: 2s; }
+    .hero-card-content { z-index: 4; }
+    .hero-card-content .mini-label { text-shadow: 0 1px 18px rgba(0,0,0,.7); }
+    .hero-card-content h3, .hero-card-content p { text-shadow: 0 2px 24px rgba(0,0,0,.8); }
+
+    [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
+    .project, .skill-card, .timeline-item, .stat { transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease; }
+    .project:hover, .skill-card:hover, .timeline-item:hover, .stat:hover { transform: translateY(-5px); border-color: rgba(93,168,255,.22); box-shadow: 0 20px 55px rgba(0,0,0,.25); }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    @keyframes glowDrift {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: .75; }
+      50% { transform: translate(-24px, 24px) scale(1.1); opacity: 1; }
+    }
+    @keyframes circuitDrift {
+      0%, 100% { transform: rotate(-7deg) translate3d(0,0,0); opacity: .9; }
+      50% { transform: rotate(-5deg) translate3d(5px,-5px,0); opacity: 1; }
+    }
+    @keyframes nodePulse {
+      0%, 100% { transform: scale(1); opacity: .8; }
+      50% { transform: scale(1.45); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero-card { min-height: 350px; }
+      .projects { grid-template-columns:1fr 1fr; }
+      .contact { grid-template-columns:1fr; }
+      .contact-actions { justify-content:flex-start; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display:none; }
+      .hero { padding-top:66px; }
+      .hero-card { min-height: 310px; }
+      .skills-grid, .projects, .stats { grid-template-columns:1fr; }
+      section { padding: 65px 0; }
+      .section-head { display:block; }
+      .section-head p { margin-top:16px; }
+      .timeline-item { display:block; }
+      .timeline-year { display:block; margin-bottom:10px; }
+      .contact, .about-copy, .quote { padding:24px; }
+      .footer-inner { display:block; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="brand-mark">MW</span><span>Mohammad Wagih</span></a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" data-reveal="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="dot"></span> Communication &amp; Electronics Engineering × AI</div>
+          <h1>Building at the intersection of <span class="gradient">Engineering &amp; AI.</span></h1>
+          <p>
+            I’m Mohammad Wagih, a Communication and Electronics Engineering student building my path toward AI Engineering — combining engineering fundamentals with Python, Data Science, Machine Learning, and practical projects.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">Explore Projects ↗</a>
+            <a class="btn btn-ghost" href="Mohammad_Wagih_CV.pdf" target="_blank">View CV</a>
+            <a class="btn btn-ghost" href="mailto:damenhory2005@gmail.com">Contact Me</a>
+          </div>
+        </div>
+        <div class="hero-card" data-reveal>
+          <img class="profile-image" src="mohammad-wagih-profile.jpg" alt="Mohammad Wagih" />
+          <div class="profile-glow" aria-hidden="true"></div>
+          <div class="circuit" aria-hidden="true">
+            <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span>
+          </div>
+          <div class="hero-card-content">
+            <div class="mini-label">Mohammad Wagih</div>
+            <h3>Engineering → Data → Intelligence</h3>
+            <p>Communication &amp; Electronics Engineering student building toward AI Engineering.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" data-reveal>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">01 — About</div><h2>Built around curiosity.</h2></div>
+          <p>My approach is simple: understand the “why”, learn the “how”, then build something useful with it.</p>
+        </div>
+        <div class="about-grid">
+          <article class="panel about-copy">
+            <p>I’m a Communication and Electronics Engineering student building my path toward AI Engineering.</p>
+            <p>What I enjoy most about technology is understanding how things work from the fundamentals, not just learning how to use them. I like to understand the “why” before the “how”, then turn what I learn into practical applications and real projects.</p>
+            <p>Currently, I’m developing my skills in AI, Data Science, and Machine Learning while building a strong foundation in Communication and Electronics Engineering. My goal is to explore the connection between these fields and understand how AI can be integrated into engineering systems and intelligent technologies.</p>
+            <p>I enjoy experimenting with different ideas, learning through projects, and connecting technical concepts to real-world applications. For me, learning is not just about collecting information—it’s about understanding the fundamentals, applying them, experimenting, and building something with them.</p>
+            <p>My long-term goal is to become a Communication and Electronics Engineer with strong AI Engineering skills, capable of combining both fields to build practical and meaningful solutions.</p>
+          </article>
+          <aside class="panel quote">
+            <strong>“Understand the fundamentals. Apply them. Experiment. Build.”</strong>
+            <p>That mindset shapes how I learn engineering, software, data, and intelligent systems.</p>
+            <div class="stats">
+              <div class="panel stat"><strong>2029</strong><span>Expected Graduation</span></div>
+              <div class="panel stat"><strong>B1</strong><span>English</span></div>
+              <div class="panel stat"><strong>AI</strong><span>Current Direction</span></div>
+              <div class="panel stat"><strong>CE</strong><span>Engineering Track</span></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" data-reveal>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">02 — Skills</div><h2>What I’m building.</h2></div>
+          <p>A growing technical foundation across software, data, and communications &amp; electronics engineering.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="panel skill-card"><h3>Programming &amp; Development</h3><p>Building programming fundamentals and practical automation workflows.</p><div class="chips"><span class="chip">Python</span><span class="chip">C++ Fundamentals</span><span class="chip">MATLAB Fundamentals</span><span class="chip">Google Colab</span><span class="chip">Jupyter Notebook</span></div></article>
+          <article class="panel skill-card"><h3>Data &amp; AI</h3><p>Developing a foundation for turning data into useful insights and predictive systems.</p><div class="chips"><span class="chip">Data Analysis</span><span class="chip">Data Visualization</span><span class="chip">Machine Learning Fundamentals</span><span class="chip">Data Science</span><span class="chip">Web Scraping</span></div></article>
+          <article class="panel skill-card"><h3>Engineering</h3><p>Academic engineering foundations that support my long-term interdisciplinary direction.</p><div class="chips"><span class="chip">Circuit Analysis</span><span class="chip">Communications &amp; Electronics</span><span class="chip">Engineering Mathematics</span><span class="chip">Calculus</span><span class="chip">Linear Algebra Fundamentals</span></div></article>
+          <article class="panel skill-card"><h3>Ways of Working</h3><p>Focused on learning by doing and connecting concepts to real-world applications.</p><div class="chips"><span class="chip">Problem Solving</span><span class="chip">Analytical Thinking</span><span class="chip">Self-Learning</span><span class="chip">Teamwork</span><span class="chip">Presentation</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" data-reveal>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">03 — Projects</div><h2>Learning through projects.</h2></div>
+          <p>Projects, tasks, and concepts that represent my current learning stage and direction.</p>
+        </div>
+        <div class="projects">
+          <article class="panel project">
+            <div class="tag">Data Science Project</div>
+            <h3>Student Performance Prediction</h3>
+            <p>A data-driven project concept focused on predicting student academic performance and identifying students who may need additional support.</p>
+            <div class="project-footer"><span>Python</span><span>Data Science</span><span>Machine Learning</span></div>
+          </article>
+          <article class="panel project">
+            <div class="tag">Web Scraping Task</div>
+            <h3>Wuzzuf Job Data Web Scraper</h3>
+            <p>A Python + Selenium scraping task that collects job listings and organizes fields such as title, company, location, workplace type, and application link.</p>
+            <div class="project-footer"><span>Python</span><span>Selenium</span><span>Web Scraping</span></div>
+          </article>
+          <article class="panel project">
+            <div class="tag">Engineering Concept</div>
+            <h3>IoT-Based Smart Monitoring System</h3>
+            <p>An interdisciplinary concept connecting sensors, communication, data analysis, and intelligent monitoring for real-world engineering applications.</p>
+            <div class="project-footer"><span>IoT</span><span>Communications</span><span>AI Applications</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey" data-reveal>
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">04 — Journey</div><h2>Education &amp; development.</h2></div>
+          <p>Building depth gradually while keeping a practical interdisciplinary direction.</p>
+        </div>
+        <div class="timeline">
+          <article class="panel timeline-item"><div class="timeline-main"><h3>Al-Azhar University — Faculty of Engineering</h3><p>B.Sc. in Engineering · Communications &amp; Electronics</p></div><div class="timeline-year">2029</div></article>
+          <article class="panel timeline-item"><div class="timeline-main"><h3>Digital Egypt Pioneers Initiative (DEPI)</h3><p>Data Science Track</p></div><div class="timeline-year">CURRENT</div></article>
+          <article class="panel timeline-item"><div class="timeline-main"><h3>Artificial Intelligence Course — The British University in Egypt (BUE)</h3><p>Developing practical AI foundations.</p></div><div class="timeline-year">LEARNING</div></article>
+          <article class="panel timeline-item"><div class="timeline-main"><h3>Oracle Training Program</h3><p>Additional technical development.</p></div><div class="timeline-year">TRAINING</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" data-reveal>
+      <div class="wrap">
+        <div class="panel contact">
+          <div>
+            <div class="kicker">05 — Contact</div>
+            <h2>Let’s build something useful.</h2>
+            <p>For collaboration, opportunities, or technical projects, feel free to reach out.</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:damenhory2005@gmail.com">Email Me</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/mohammad-wagih-233717388" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a class="btn btn-ghost" href="https://github.com/mohammadeldamanhory" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>© <span id="year"></span> Mohammad Wagih. Built with curiosity.</div>
+      <div>Communication &amp; Electronics Engineering × AI</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach((item) => observer.observe(item));
+  </script>
+</body>
+</html>
